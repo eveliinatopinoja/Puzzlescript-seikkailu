@@ -23,14 +23,6 @@ darkgrey grey
 01101
 00010
 
-creature
-gray
-00000
-.....
-.....
-.....
-.....
-
 cursor
 gray white
 00000
@@ -98,7 +90,7 @@ COLLISIONLAYERS
 
 Background,
 flower, flowerhat
-wall, Endwall, creature, floor
+wall, Endwall, floor
 cursor, cursorWithFlower, ukkeli
 
 
@@ -106,7 +98,6 @@ cursor, cursorWithFlower, ukkeli
 RULES
 ======
 
-[ Stationary creature ] -> [ randomDir creature ]
 [ player Background ] -> [ player wall ]
 [ player floor ] -> [ player wall ]
 [ player flowerhat ] -> [ player wall ]
