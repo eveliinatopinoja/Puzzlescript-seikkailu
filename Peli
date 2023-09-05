@@ -1,0 +1,43 @@
+title Ollin Marko-peli
+author Olli
+homepage aalto.fi
+
+realtime_interval 0.5
+
+========
+OBJECTS
+========
+
+
+Background
+darkgray 
+
+Wall
+lightbrown
+
+Block
+white
+
+RedFlag
+Red Brown
+.0000
+.0000
+.0000
+...1.
+...1.
+
+Electrician
+black brown #E8BEAC blue red
+.444.
+.222.
+43434
+43334
+.1.1.
+
+Mörkö
+black brown #E8BEAC blue red
+.111.
+.000.
+13131
+.333.
+.1.1.
