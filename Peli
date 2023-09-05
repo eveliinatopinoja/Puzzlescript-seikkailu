@@ -41,3 +41,71 @@ black brown #E8BEAC blue red
 13131
 .333.
 .1.1.
+
+Door
+brown darkbrown yellow
+01010
+01010
+02010
+02010
+01010
+
+=======
+LEGEND
+=======
+
+. = Background
+p = Electrician
+Player = Electrician
+m = Mörkö
+# = Wall
+
+=======
+SOUNDS
+=======
+
+EndLevel 123413
+
+================
+COLLISIONLAYERS
+================
+
+Background
+Block, Wall, Mörkö
+Electrician
+
+======
+RULES
+======
+
+[stationary Mörkö] -> [randomdir Mörkö]
+[Action Electrician |] -> [Electrician Block |]
+[Player Mörkö |] -> [ < Player | Mörkö ] message Woah, don't get too close to those nasty beasts!
+late [ Player FlagRed ] -> CHECKPOINT
+
+==============
+WINCONDITIONS
+============== 
+
+=======
+LEVELS
+=======
+
+MESSAGE Saata maailmaa terrorisoivat möröt nalkkiin laatikoillasi!
+
+###############
+#.............#
+#.....p.......#
+#.............#
+#.............#
+#.............#
+#.............#
+#.........m...#
+#.............#
+#..m..........#
+#.............#
+###############
+
+MESSAGE Käy auttamassa naapurin Marttaa samoissa puuhissa!
+ 
+MESSAGE Kaikki möröt ovat nalkissa! Voitit pelin. 
