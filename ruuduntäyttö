@@ -1,0 +1,66 @@
+title Ruuduntäyttäjä
+author mmmmmm
+homepage aalto.fi
+
+========
+OBJECTS
+========
+
+Background
+black
+
+wall
+white
+
+cursor
+gray
+00000
+0...0
+0...0
+0...0
+00000
+
+=======
+LEGEND
+=======
+
+. = background
+player = cursor
+c = cursor
+# = wall
+
+=======
+SOUNDS
+=======
+
+================
+COLLISIONLAYERS
+================
+
+Background,
+wall, creature,
+cursor
+
+======
+RULES
+======
+
+[ Stationary creature ] -> [ randomDir creature ]
+[ cursor Background ] -> [ cursor wall ]
+
+==============
+WINCONDITIONS
+==============
+
+=======
+LEVELS
+=======
+
+.....................
+.....................
+.....................
+............c........
+.....................
+.....................
+.....................
+
