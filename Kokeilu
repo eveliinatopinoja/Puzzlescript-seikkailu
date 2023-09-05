@@ -1,0 +1,163 @@
+title Ollin Marko-peli
+author Olli
+homepage aalto.fi
+
+realtime_interval 0.5
+
+========
+OBJECTS
+========
+
+
+Background
+darkgray 
+
+Wall
+lightbrown
+
+Block
+white
+
+RedFlag
+Red Brown
+.0000
+.0000
+.0000
+...1.
+...1.
+
+Electrician
+black brown #E8BEAC blue red
+.444.
+.222.
+43434
+43334
+.1.1.
+
+Mörkö
+black brown #E8BEAC blue red
+.111.
+.000.
+13131
+.333.
+.1.1.
+
+=======
+LEGEND
+=======
+
+. = Background
+p = Electrician
+Player = Electrician
+m = Mörkö
+# = Wall
+f = RedFlag
+
+=======
+SOUNDS
+=======
+
+EndLevel 123413
+
+================
+COLLISIONLAYERS
+================
+
+Block, Wall, Mörkö, RedFlag
+Electrician
+Background
+
+======
+RULES
+======
+
+[stationary Mörkö] -> [randomdir Mörkö]
+[Action Electrician |] -> [Electrician Block |]
+[Player Mörkö |] -> [ < Player | Mörkö ] message Woah, don't get too close to those nasty beasts!
+late [ Player RedFlag ] -> CHECKPOINT
+
+==============
+WINCONDITIONS
+============== 
+
+
+
+=======
+LEVELS
+=======
+
+MESSAGE Saata maailmaa terrorisoivat möröt nalkkiin laatikoillasi!
+
+###############
+#.............#
+#.....p.......#
+#.............#
+#.............#
+#.............#
+#.....f.......#
+#.........m...#
+#.............#
+#..m..........#
+#.............#
+###############
+
+MESSAGE Käy auttamassa naapurin Marttaa samoissa puuhissa!
+
+###############
+#.............#
+#.....p.......#
+#.............#
+#.............#
+#.............#
+#.............#
+#.........m...#
+#.............#
+#..m..........#
+#.............#
+###############
+
+
+###############
+#.............#
+#.....p.......#
+#.............#
+#.............#
+#.............#
+#.............#
+#.........m...#
+#.............#
+#..m..........#
+#.............#
+###############
+  
+MESSAGE Käy vielä toki Torppari Timppaa jeesamassa, oletko kiltti?
+
+###############
+#.............#
+#.....p.......#
+#.............#
+#.............#
+#.............#
+#.............#
+#.........m...#
+#.............#
+#..m..........#
+#.............#
+###############
+
+
+###############
+#.............#
+#.....p.......#
+#.............#
+#.............#
+#.............#
+#.............#
+#.........m...#
+#.............#
+#..m..........#
+#.............#
+###############
+
+MESSAGE Kaikki möröt ovat nalkissa! Voitit pelin.
+
