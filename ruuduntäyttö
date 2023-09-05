@@ -29,12 +29,45 @@ gray
 .....
 
 cursor
-gray
+gray white
 00000
-0...0
-0...0
-0...0
+01110
+01110
+01110
 00000
+
+cursorWithFlower
+gray yellow pink white
+00000
+03230
+02120
+03230
+00000
+
+flower
+pink yellow green
+..0..
+.010.
+..0..
+..22.
+..2..
+
+ukkeli
+black blue purple
+.....
+.....
+.010.
+.111.
+.2.2.
+
+flowerhat
+pink yellow purple black blue
+..0..
+.010.
+.343.
+.444.
+.2.2.
+
 
 =======
 LEGEND
@@ -45,7 +78,11 @@ player = cursor
 c = cursor
 # = wall
 x = endwall
-y = endwall or wall or
+y = endwall or wall
+f = flower
+d = cursorwithflower
+h = flowerhat
+u = ukkeli
 
 =======
 SOUNDS
@@ -56,8 +93,9 @@ COLLISIONLAYERS
 ================
 
 Background,
+flower, flowerhat
 wall, creature,
-cursor
+cursor, cursorWithFlower, ukkeli
 Endwall
 
 
@@ -69,7 +107,10 @@ RULES
 [ cursor Background ] -> [ cursor wall ]
 [> cursor | y ] -> [cursor | y ]
 
-
+[ cursorWithFlower Background ] -> [ cursorWithFlower wall]
+[> cursorWithFlower | y ] -> [cursorWithFlower | y ]
+late [cursor flower] -> [cursorWithFlower]
+[action cursorWithFlower | ukkeli] -> [cursor | flowerhat]
 ==============
 WINCONDITIONS
 ==============
@@ -80,11 +121,7 @@ no background
 LEVELS
 =======
 xxxxxxxxxxxxxxxxxxxxxxx
-x.....................x
-x.....................x
-x.....................x
-x............c........x
-x.....................x
-x.....................x
-x.....................x
+x..x............f.....x
+x..x......x...........x
+xc........x......u....x
 xxxxxxxxxxxxxxxxxxxxxxx
