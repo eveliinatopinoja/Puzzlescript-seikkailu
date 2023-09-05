@@ -12,6 +12,14 @@ white
 floor
 white
 
+doublefloor
+white blue
+00000
+01010
+00100
+01010
+00000
+
 wall
 black
 
@@ -63,7 +71,6 @@ pink yellow purple black blue
 .444.
 .2.2.
 
-
 =======
 LEGEND
 =======
@@ -71,6 +78,7 @@ LEGEND
 B = background
 player = cursor or cursorWithFlower
 . = floor
+: = doublefloor
 c = cursor
 # = wall
 x = endwall
@@ -90,7 +98,7 @@ COLLISIONLAYERS
 
 Background,
 flower, flowerhat
-wall, Endwall, floor
+wall, Endwall, floor, doublefloor
 cursor, cursorWithFlower, ukkeli
 
 
@@ -98,8 +106,9 @@ cursor, cursorWithFlower, ukkeli
 RULES
 ======
 
-[ player Background ] -> [ player wall ]
+[ player Background No floor No doublefloor ] -> [ player wall ]
 [ player floor ] -> [ player wall ]
+[ player doublefloor ] -> [ player floor ]
 [ player flowerhat ] -> [ player wall ]
 [> player | y ] -> [ player | y ]
 late [cursor flower] -> [cursorWithFlower]
