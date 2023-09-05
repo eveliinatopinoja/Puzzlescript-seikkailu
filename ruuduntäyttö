@@ -7,10 +7,13 @@ OBJECTS
 ========
 
 Background
-black
+white
+
+floor
+white
 
 wall
-white
+black
 
 EndWall
 darkgrey grey
@@ -73,8 +76,9 @@ pink yellow purple black blue
 LEGEND
 =======
 
-. = background
-player = cursor
+B = background
+player = cursor or cursorWithFlower
+. = floor
 c = cursor
 # = wall
 x = endwall
@@ -94,9 +98,8 @@ COLLISIONLAYERS
 
 Background,
 flower, flowerhat
-wall, creature,
+wall, Endwall, creature, floor
 cursor, cursorWithFlower, ukkeli
-Endwall
 
 
 ======
@@ -104,18 +107,20 @@ RULES
 ======
 
 [ Stationary creature ] -> [ randomDir creature ]
-[ cursor Background ] -> [ cursor wall ]
-[> cursor | y ] -> [cursor | y ]
-
-[ cursorWithFlower Background ] -> [ cursorWithFlower wall]
-[> cursorWithFlower | y ] -> [cursorWithFlower | y ]
+[ player Background ] -> [ player wall ]
+[ player floor ] -> [ player wall ]
+[ player flowerhat ] -> [ player wall ]
+[> player | y ] -> [ player | y ]
 late [cursor flower] -> [cursorWithFlower]
 [action cursorWithFlower | ukkeli] -> [cursor | flowerhat]
+
 ==============
 WINCONDITIONS
 ==============
 
-no background
+no floor
+no ukkeli
+no flowerhat
 
 =======
 LEVELS
