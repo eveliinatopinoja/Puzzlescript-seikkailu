@@ -1,5 +1,5 @@
-title Ruuduntäyttäjä
-author mmmmmm
+Title Ruuduntäyttäjä
+author mmmmm
 homepage aalto.fi
 
 ========
@@ -11,6 +11,22 @@ black
 
 wall
 white
+
+EndWall
+darkgrey grey
+01100
+00010
+11000
+01101
+00010
+
+creature
+gray
+00000
+.....
+.....
+.....
+.....
 
 cursor
 gray
@@ -28,11 +44,13 @@ LEGEND
 player = cursor
 c = cursor
 # = wall
+x = endwall
+y = endwall or wall or
 
 =======
 SOUNDS
 =======
-
+ 
 ================
 COLLISIONLAYERS
 ================
@@ -40,6 +58,8 @@ COLLISIONLAYERS
 Background,
 wall, creature,
 cursor
+Endwall
+
 
 ======
 RULES
@@ -47,20 +67,24 @@ RULES
 
 [ Stationary creature ] -> [ randomDir creature ]
 [ cursor Background ] -> [ cursor wall ]
+[> cursor | y ] -> [cursor | y ]
+
 
 ==============
 WINCONDITIONS
 ==============
 
+no background
+
 =======
 LEVELS
 =======
-
-.....................
-.....................
-.....................
-............c........
-.....................
-.....................
-.....................
-
+xxxxxxxxxxxxxxxxxxxxxxx
+x.....................x
+x.....................x
+x.....................x
+x............c........x
+x.....................x
+x.....................x
+x.....................x
+xxxxxxxxxxxxxxxxxxxxxxx
