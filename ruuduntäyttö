@@ -107,12 +107,13 @@ RULES
 ======
 
 [ player Background No floor No doublefloor ] -> [ player wall ]
-[ player floor ] -> [ player wall ]
+late [ player floor ] -> [ player wall ]
 [ player doublefloor ] -> [ player floor ]
 [ player flowerhat ] -> [ player wall ]
 [> player | y ] -> [ player | y ]
 late [cursor flower] -> [cursorWithFlower]
 [action cursorWithFlower | ukkeli] -> [cursor | flowerhat]
+[> cursorWithFlower | ukkeli] -> [cursor | flowerhat]
 
 ==============
 WINCONDITIONS
