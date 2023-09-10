@@ -154,7 +154,7 @@ x......x..x..xxxx.....x
 xf....................x
 xxxxxxxxxxxxxxxxxxxxxxx
 
-Message "Jäinen lumi kestää painoasi paremmin. Niiden päälle on liikuttava useamman kerran!"
+Message "Jäinen lumi kestää painoasi paremmin. Niiden päällä on liikuttava useamman kerran!"
 
 xxxxxxxxxxxxxxxx
 x..............x
@@ -163,3 +163,19 @@ x.:xfx.........x
 x..x:::.......ux
 xc..fx........ux
 xxxxxxxxxxxxxxxx
+
+xxxxxxxxxxxxxxxx
+xc...f.......::x
+xxxxxx.....::::x
+x..:....:..xxxxx
+x:::....:...u..x
+xxxxxxxxxxxxxxxx
+
+xxxxxxxx
+x...c..x
+x.::..fx
+xu.::..x
+xxx....x
+x..::..x
+x.::...x
+xxxxxxxx
