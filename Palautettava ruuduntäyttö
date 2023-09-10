@@ -79,7 +79,7 @@ B = background
 player = cursor or cursorWithFlower (Pelaaja säilöö toisessa spritessään "ainoan kerättävän kukan")
 . = floor 
 : = doublefloor (Nämä muuttuvat jälkimmäisiksi peliä pelatessa samantyyppisellä säännöllä kun ensimmäiset tuhoutuvat)
-c = cursor (Tämä pelaajamuoto "kukankeräämisen" varmistamisen vuoksi)
+c = cursor (Tämä pelaajamuoto "kukan keräämisen" varmistamisen vuoksi)
 # = wall 
 x = endwall
 allwalls = endwall or wall (Tämä vain seinäsäännön helpottamiseksi)
@@ -104,21 +104,20 @@ COLLISIONLAYERS
 
 Background,
 wall, Endwall, floor, doublefloor, flower, flowerhat (Vaikka "lattiat" ja seinät ovat pelaajia alemmilla tasoilla, seinien läpäisemättömyys on ilmaistu säännöissä)
-cursor, cursorWithFlower, ukkeli (Molemmat pelaajat sekä kukattomat otukset ovat samalla tasolla, jotta otukset voivat tässä tilassa olla pelaajan "tiellä")
-
+cursor, cursorWithFlower, ukkeli (Molemmat pelaajat sekä kukattomat otukset ovat samalla tasolla, jotta otukset voivat tässä tilassa olla pelaajan "tiellä". Vasta kun ne otukset saavat pelaajan antaman kukan, ne voidaan "tuhota" kävelemällä niiden päälle.)
 
 ======
 RULES
 ======
 
 [ player Background No floor No doublefloor ] -> [ player wall ] (Aloitusruudussa, johon "cursor" on asetettu, ei automaattisesti voi olla "floor" -objektia. Se on siihen asetettava tietyin ehdoin.)
-[ player floor ] -> [ player wall ] (Pelaaja "hävittää" lumen samassa ruudussa, muuttamalla sen mustaksi "wall" -taustaksi)
-[ doublefloor > player | allfloors ] -> [ floor | player allfloors ] (Pelaaja muuttaa jäisen lumen lumeksi samassa ruudussa vain ja ainoastaan liikkumalla toiselle lattialla. Näin varmistetaan, ettei liikkumalla seinää vasten voida "huijata" tuplalattiaa pois)
+[ player floor ] -> [ player wall ] (Pelaaja "hävittää" lumen ollessa sen kanssa samassa ruudussa, muuttamalla sen mustaksi "wall" -taustaksi)
+[ doublefloor > player | allfloors ] -> [ floor | player allfloors ] (Pelaaja muuttaa tuplalattian lattiaksi samassa ruudussa vain ja ainoastaan liikkumalla toiselle lattialla. Näin varmistetaan, ettei liikkumalla seinää vasten voida "huijata" tuplalattiaa pois --> Sen päältä on käveltävä useamman kerran.)
 [> player | allwalls ] -> [ player | allwalls ] (Pelaajan liike kaikkia seinätyyppejä kohti evätään)
 late [cursor flower] -> [cursorWithFlower] (Kukan keräämisen voi suorittaa vain ja ainoastaan kukaton "cursor", ei "pelaaja")
 [action cursorWithFlower | ukkeli] -> [cursor | flowerhat] message "Kiitos kukasta! Voin viimein lähteä lipettiin tästä luolasta! Kjähhähhäh!" 
-(Kukalllinen pelaaja voi vuorovaikuttaa viereisessä ruudussa olevan otuksen kanssa, jolloin pelaaja palaa "cursor" -muotoonsa ja syntyy kukallinen otus, jonka päältä pelaaja voi "kävellä". Samalla syntyy viesti.)
-late[ player flowerhat ] -> [ player wall ] (Pelaaja hävittää kukallisen otuksen samassa ruudussa)
+(Kukalllinen pelaaja voi vuorovaikuttaa viereisessä ruudussa olevan otuksen kanssa, jolloin pelaaja palaa "cursor" -muotoonsa ja syntyy kukallinen otus, jonka päältä pelaaja voi kävellä, samalla tuhoten otuksen. Samalla syntyy viesti.)
+late[ player flowerhat ] -> [ player wall ] (Pelaaja hävittää kukallisen otuksen ollessa sen kanssa samassa ruudussa)
 
 ==============
 WINCONDITIONS
@@ -205,6 +204,5 @@ x...x.xc..x..:.xxx
 x..u..x...x...xxxx
 x..xxxx...xx..xxxx
 xxxxxxxxxxxxxxxxxx
-
 
 Message "Suoriuduit kaikista luolista! Onneksi olkoon!"
