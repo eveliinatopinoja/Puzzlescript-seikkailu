@@ -138,7 +138,7 @@ Message "Olet raskas otus jumissa luolassa. Voit liikkua vain lummisen maan pä�
 
 Message "Tielläsi olevat otukset eivät kuitenkaan väisty tieltästi, ellet anna heille luolissa piilekseviä taikakukkia (paina x otuksen vieressä)! Ole kuitenkin varovainen kukkien keräämisen yhteydessä, sisuksiisi mahtuu vain yksi kukka kerrallaan!"
 
-Message "Jos jostain syystä jäät nalkkiin kuin nalli kalliolle, paina R (restart)."
+Message "Jos jostain syystä jäät nalkkiin kykenemättä liikkumaan, paina R (restart)."
 
 xxxxxxxxxxxxxxxxxxxxxxx
 x..x............f.....x
@@ -203,7 +203,7 @@ x..xf.x...x:...xxx
 x..xx.xxx.x...:.xx
 x...x.xc..x..:.xxx
 x..u..x...x...xxxx
-
-Message "Suoriuduit kaikista luolista! Onneksi olkoon!"
 x..xxxx...xx..xxxx
 xxxxxxxxxxxxxxxxxx
+
+Message "Suoriuduit kaikista luolista! Onneksi olkoon!"
