@@ -1,10 +1,12 @@
 Title Ruuduntäyttäjä
-author mmmmm
+author Eveliina Topinoja, Arno Muttilainen & Olli Konttinen
 homepage aalto.fi
 
 ========
 OBJECTS
 ========
+
+(Lopullisena tarkoituksenamme oli rakentaa hyvään tasosuunnitteluun perustuva haastepeli, jossa oli tarkoitus vierailla kartan joka ruudussa. Lisäelementtejä syntyi yhtäaikaa pelin ideoinnin yhteydessä. Suunnittelijoina Eveliina Topinoja, Arno Muttilainen & Olli Konttinen.)
 
 Background
 white
@@ -76,10 +78,10 @@ LEGEND
 =======
 
 B = background
-player = cursor or cursorWithFlower (Pelaaja säilöö toisessa spritessään "ainoan kerättävän kukan")
+player = cursor or cursorWithFlower (Pelaaja säilöö toisessa spritessään yhden kerättävän kukan kerrallaan)
 . = floor 
-: = doublefloor (Nämä muuttuvat jälkimmäisiksi peliä pelatessa samantyyppisellä säännöllä kun ensimmäiset tuhoutuvat)
-c = cursor (Tämä pelaajamuoto "kukan keräämisen" varmistamisen vuoksi)
+: = doublefloor (Nämä muuttuvat "flooreiksi" hieman erityyppisellä säännöllä kun ensimmäiset tuhoutuvat pelaajan niissä vieraillessa)
+c = cursor (Tämä pelaajamuoto kukan oikeanlaisen keräämisen varmistamisen vuoksi)
 # = wall 
 x = endwall
 allwalls = endwall or wall (Tämä vain seinäsäännön helpottamiseksi)
@@ -87,37 +89,37 @@ f = flower
 d = cursorwithflower
 h = flowerhat
 u = ukkeli
-allfloors = floor or doublefloor (Voittosääntöä varten)
+allfloors = floor or doublefloor (Voittosäännnön yksinkertaistamista varten)
 
 =======
 SOUNDS
 =======
- flowerhat Create 123413 
- flowerhat Destroy 37352508
- floor destroy 98662308
- doublefloor destroy 25248908 (32599108) (80304707)
- flower destroy 28405308
+flowerhat Create 123413 
+flowerhat Destroy 37352508
+floor destroy 98662308
+doublefloor destroy 25248908 (32599108) (80304707)
+flower destroy 28405308
  
 ================
 COLLISIONLAYERS
 ================
 
 Background,
-wall, Endwall, floor, doublefloor, flower, flowerhat (Vaikka "lattiat" ja seinät ovat pelaajia alemmilla tasoilla, seinien läpäisemättömyys on ilmaistu säännöissä)
-cursor, cursorWithFlower, ukkeli (Molemmat pelaajat sekä kukattomat otukset ovat samalla tasolla, jotta otukset voivat tässä tilassa olla pelaajan "tiellä". Vasta kun ne otukset saavat pelaajan antaman kukan, ne voidaan "tuhota" kävelemällä niiden päälle.)
+wall, Endwall, floor, doublefloor, flower, flowerhat (Vaikka seinät ovat pelaajia alemmilla tasoilla, seinien läpäisemättömyys on ilmaistu säännöissä; lattioissa on taas tarkoitus vierailla)
+cursor, cursorWithFlower, ukkeli (Molemmat pelaajat sekä kukattomat otukset ovat samalla tasolla, jotta otukset voivat tässä tilassa olla pelaajan "tiellä")
+
 
 ======
 RULES
 ======
-
 [ player Background No floor No doublefloor ] -> [ player wall ] (Aloitusruudussa, johon "cursor" on asetettu, ei automaattisesti voi olla "floor" -objektia. Se on siihen asetettava tietyin ehdoin.)
-[ player floor ] -> [ player wall ] (Pelaaja "hävittää" lumen ollessa sen kanssa samassa ruudussa, muuttamalla sen mustaksi "wall" -taustaksi)
-[ doublefloor > player | allfloors ] -> [ floor | player allfloors ] (Pelaaja muuttaa tuplalattian lattiaksi samassa ruudussa vain ja ainoastaan liikkumalla toiselle lattialla. Näin varmistetaan, ettei liikkumalla seinää vasten voida "huijata" tuplalattiaa pois --> Sen päältä on käveltävä useamman kerran.)
-[> player | allwalls ] -> [ player | allwalls ] (Pelaajan liike kaikkia seinätyyppejä kohti evätään)
-late [cursor flower] -> [cursorWithFlower] (Kukan keräämisen voi suorittaa vain ja ainoastaan kukaton "cursor", ei "pelaaja")
+[ player floor ] -> [ player wall ] (Pelaaja hävittää "floorin" samassa ruudussa, muuttamalla sen mustaksi "wall" -taustaksi)
+[ doublefloor > player | allfloors ] -> [ floor | player allfloors ] (Pelaaja muuttaa tuplalattian lattiaksi samassa ruudussa vain ja ainoastaan liikkumalla jollekin lattiatyypille. Näin varmistetaan, ettei liikkumalla seinää vasten voida "huijata" tuplalattiaa pois)
+[> player | allwalls ] -> [ player | allwalls ] (Pelaajan liike kaikkia seinätyyppejä kohti evätään erikseen)
+late [cursor flower] -> [cursorWithFlower] (Kukan keräämisen voi suorittaa vain ja ainoastaan kukaton "cursor", ei "pelaaja" tai "cursorWithFlower")
 [action cursorWithFlower | ukkeli] -> [cursor | flowerhat] message "Kiitos kukasta! Voin viimein lähteä lipettiin tästä luolasta! Kjähhähhäh!" 
-(Kukalllinen pelaaja voi vuorovaikuttaa viereisessä ruudussa olevan otuksen kanssa, jolloin pelaaja palaa "cursor" -muotoonsa ja syntyy kukallinen otus, jonka päältä pelaaja voi kävellä, samalla tuhoten otuksen. Samalla syntyy viesti.)
-late[ player flowerhat ] -> [ player wall ] (Pelaaja hävittää kukallisen otuksen ollessa sen kanssa samassa ruudussa)
+(Kukalllinen pelaaja voi vuorovaikuttaa viereisessä ruudussa olevan otuksen kanssa, jolloin pelaaja palaa "cursor" -muotoonsa ja syntyy kukallinen otus, jonka päältä pelaaja voi "kävellä". Samalla syntyy viesti.)
+late[ player flowerhat ] -> [ player wall ] (Pelaaja hävittää kukallisen otuksen samassa ruudussa)
 
 ==============
 WINCONDITIONS
@@ -137,7 +139,7 @@ Message "Olet raskas otus jumissa luolassa. Voit liikkua vain lummisen maan pä�
 
 Message "Tielläsi olevat otukset eivät kuitenkaan väisty tieltästi, ellet anna heille luolissa piilekseviä taikakukkia (paina x otuksen vieressä)! Ole kuitenkin varovainen kukkien keräämisen yhteydessä, sisuksiisi mahtuu vain yksi kukka kerrallaan!"
 
-Message "Jos jostain syystä jäät nalkkiin kykenemättä liikkumaan, paina R (restart)."
+Message "Jos jostain syystä jäät nalkkiin kuin nalli kalliolle, paina R (restart)."
 
 xxxxxxxxxxxxxxxxxxxxxxx
 x..x............f.....x
@@ -153,7 +155,7 @@ x......x..x..xxxx.....x
 xf....................x
 xxxxxxxxxxxxxxxxxxxxxxx
 
-Message "Jäinen lumi kestää painoasi paremmin. Niiden päällä on liikuttava useamman kerran!"
+Message "Jäinen lumi kestää painoasi paremmin. Niiden päälle on liikuttava useamman kerran!"
 
 xxxxxxxxxxxxxxxx
 x..............x
@@ -165,9 +167,9 @@ xxxxxxxxxxxxxxxx
 
 xxxxxxxxxxxxxxxx
 xc...f.......::x
-xxxxxx.....::::x
-x..:....:..xxxxx
-x:::....:...u..x
+xxxxxxx....::::x
+x...:....:..xxxx
+x.:::....:...u.x
 xxxxxxxxxxxxxxxx
 
 xxxxxxxx
@@ -205,4 +207,4 @@ x..u..x...x...xxxx
 x..xxxx...xx..xxxx
 xxxxxxxxxxxxxxxxxx
 
-Message "Suoriuduit kaikista luolista! Onneksi olkoon!"
+Message "Selviydyit kaikista luolista! Onneksi olkoon!"
