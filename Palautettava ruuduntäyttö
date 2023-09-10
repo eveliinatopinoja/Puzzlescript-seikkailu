@@ -111,9 +111,9 @@ cursor, cursorWithFlower, ukkeli (Molemmat pelaajat sekä kukattomat otukset ova
 RULES
 ======
 
-[ player Background No floor No doublefloor ] -> [ player wall ]
+[ player Background No floor No doublefloor ] -> [ player wall ] (Aloitusruudussa, johon "cursor" on asetettu, ei automaattisesti voi olla "floor" -objektia. Se on siihen asetettava tietyin ehdoin.)
 [ player floor ] -> [ player wall ] (Pelaaja "hävittää" lumen samassa ruudussa, muuttamalla sen mustaksi "wall" -taustaksi)
-[ player doublefloor ] -> [ player floor ] (Pelaaja muuttaa jäisen lumen lumeksi samassa ruudussa)
+[ doublefloor > player | allfloors ] -> [ floor | player allfloors ] (Pelaaja muuttaa jäisen lumen lumeksi samassa ruudussa vain ja ainoastaan liikkumalla toiselle lattialla. Näin varmistetaan, ettei liikkumalla seinää vasten voida "huijata" tuplalattiaa pois)
 [> player | allwalls ] -> [ player | allwalls ] (Pelaajan liike kaikkia seinätyyppejä kohti evätään)
 late [cursor flower] -> [cursorWithFlower] (Kukan keräämisen voi suorittaa vain ja ainoastaan kukaton "cursor", ei "pelaaja")
 [action cursorWithFlower | ukkeli] -> [cursor | flowerhat] message "Kiitos kukasta! Voin viimein lähteä lipettiin tästä luolasta! Kjähhähhäh!" 
