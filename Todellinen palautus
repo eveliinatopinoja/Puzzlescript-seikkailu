@@ -114,9 +114,15 @@ RULES
 ======
 [ player Background No floor No doublefloor ] -> [ player wall ] (Aloitusruudussa, johon "cursor" on asetettu, ei automaattisesti voi olla "floor" -objektia. Se on siihen asetettava tietyin ehdoin.)
 [ player floor ] -> [ player wall ] (Pelaaja hävittää "floorin" samassa ruudussa, muuttamalla sen mustaksi "wall" -taustaksi)
+
 [ doublefloor > player | allfloors ] -> [ floor | player allfloors ] (Pelaaja muuttaa tuplalattian lattiaksi samassa ruudussa vain ja ainoastaan liikkumalla jollekin lattiatyypille. Näin varmistetaan, ettei liikkumalla seinää vasten voida "huijata" tuplalattiaa pois)
+[ doublefloor > player | flowerhat ] -> [ floor | player flowerhat ] 
+[ doublefloor > player | flower ] -> [ floor | player flower ]
+(Samantyyppinen varmistus myös muille sallituille liikkumiskohteille)
+
 [> player | allwalls ] -> [ player | allwalls ] (Pelaajan liike kaikkia seinätyyppejä kohti evätään erikseen)
 late [cursor flower] -> [cursorWithFlower] (Kukan keräämisen voi suorittaa vain ja ainoastaan kukaton "cursor", ei "pelaaja" tai "cursorWithFlower")
+
 [action cursorWithFlower | ukkeli] -> [cursor | flowerhat] message "Kiitos kukasta! Voin viimein lähteä lipettiin tästä luolasta! Kjähhähhäh!" 
 [> cursorWithFlower | ukkeli] -> [cursor | flowerhat] message "Kiitos kukasta! Voin viimein lähteä lipettiin tästä luolasta! Kjähhähhäh!" 
 (Kukalllinen pelaaja voi vuorovaikuttaa viereisessä ruudussa olevan otuksen kanssa, jolloin pelaaja palaa "cursor" -muotoonsa ja syntyy kukallinen otus, jonka päältä pelaaja voi "kävellä". Samalla syntyy viesti.)
