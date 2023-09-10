@@ -1,0 +1,209 @@
+Title Ruuduntäyttäjä
+author Eveliina Topinoja, Arno Muttilainen & Olli Konttinen
+homepage aalto.fi
+
+========
+OBJECTS
+========
+
+(Lopullisena tarkoituksenamme oli rakentaa hyvään tasosuunnitteluun perustuva haastepeli, jossa oli tarkoitus vierailla kartan joka ruudussa. Lisäelementtejä syntyi yhtäaikaa pelin ideoinnin yhteydessä. Suunnittelijoina Eveliina Topinoja, Arno Muttilainen & Olli Konttinen.)
+
+Background
+white
+
+floor
+white
+
+doublefloor
+white blue
+00000
+01010
+00100
+01010
+00000
+
+wall
+black
+
+EndWall
+darkgrey grey
+01100
+00010
+11000
+01101
+00010
+
+cursor
+gray white
+00000
+01110
+01110
+01110
+00000
+
+cursorWithFlower
+gray yellow pink white
+00000
+03230
+02120
+03230
+00000
+
+flower
+pink yellow green
+..0..
+.010.
+..0..
+..22.
+..2..
+
+ukkeli
+black blue purple
+.....
+.....
+.010.
+.111.
+.2.2.
+
+flowerhat
+pink yellow purple black blue
+..0..
+.010.
+.343.
+.444.
+.2.2.
+
+=======
+LEGEND
+=======
+
+B = background
+player = cursor or cursorWithFlower (Pelaaja säilöö toisessa spritessään yhden kerättävän kukan kerrallaan)
+. = floor 
+: = doublefloor (Nämä muuttuvat "flooreiksi" hieman erityyppisellä säännöllä kun ensimmäiset tuhoutuvat pelaajan niissä vieraillessa)
+c = cursor (Tämä pelaajamuoto kukan oikeanlaisen keräämisen varmistamisen vuoksi)
+# = wall 
+x = endwall
+allwalls = endwall or wall (Tämä vain seinäsäännön helpottamiseksi)
+f = flower
+d = cursorwithflower
+h = flowerhat
+u = ukkeli
+allfloors = floor or doublefloor (Voittosäännnön yksinkertaistamista varten)
+
+=======
+SOUNDS
+=======
+flowerhat Create 123413 
+flowerhat Destroy 37352508
+floor destroy 98662308
+doublefloor destroy 25248908 (32599108) (80304707)
+flower destroy 28405308
+ 
+================
+COLLISIONLAYERS
+================
+
+Background,
+wall, Endwall, floor, doublefloor, flower, flowerhat (Vaikka seinät ovat pelaajia alemmilla tasoilla, seinien läpäisemättömyys on ilmaistu säännöissä; lattioissa on taas tarkoitus vierailla)
+cursor, cursorWithFlower, ukkeli (Molemmat pelaajat sekä kukattomat otukset ovat samalla tasolla, jotta otukset voivat tässä tilassa olla pelaajan "tiellä")
+
+
+======
+RULES
+======
+[ player Background No floor No doublefloor ] -> [ player wall ] (Aloitusruudussa, johon "cursor" on asetettu, ei automaattisesti voi olla "floor" -objektia. Se on siihen asetettava tietyin ehdoin.)
+[ player floor ] -> [ player wall ] (Pelaaja hävittää "floorin" samassa ruudussa, muuttamalla sen mustaksi "wall" -taustaksi)
+[ doublefloor > player | allfloors ] -> [ floor | player allfloors ] (Pelaaja muuttaa tuplalattian lattiaksi samassa ruudussa vain ja ainoastaan liikkumalla jollekin lattiatyypille. Näin varmistetaan, ettei liikkumalla seinää vasten voida "huijata" tuplalattiaa pois)
+[> player | allwalls ] -> [ player | allwalls ] (Pelaajan liike kaikkia seinätyyppejä kohti evätään erikseen)
+late [cursor flower] -> [cursorWithFlower] (Kukan keräämisen voi suorittaa vain ja ainoastaan kukaton "cursor", ei "pelaaja" tai "cursorWithFlower")
+[action cursorWithFlower | ukkeli] -> [cursor | flowerhat] message "Kiitos kukasta! Voin viimein lähteä lipettiin tästä luolasta! Kjähhähhäh!" 
+[> cursorWithFlower | ukkeli] -> [cursor | flowerhat] message "Kiitos kukasta! Voin viimein lähteä lipettiin tästä luolasta! Kjähhähhäh!" 
+(Kukalllinen pelaaja voi vuorovaikuttaa viereisessä ruudussa olevan otuksen kanssa, jolloin pelaaja palaa "cursor" -muotoonsa ja syntyy kukallinen otus, jonka päältä pelaaja voi "kävellä". Samalla syntyy viesti.)
+late[ player flowerhat ] -> [ player wall ] (Pelaaja hävittää kukallisen otuksen samassa ruudussa)
+
+==============
+WINCONDITIONS
+==============
+
+no allfloors 
+(Minkäänlaisia "lattioita" ei saa olla jäljellä tasossa)
+no ukkeli
+no flowerhat
+(Minkäänlaisia otuksia ei saa olla jäljellä tasossa)
+
+=======
+LEVELS
+=======
+
+Message "Olet raskas otus jumissa luolassa. Voit liikkua vain lummisen maan päällä. Luminen ja jäinen maa kuitenkin sortuu altasi kun liikut. Koita tyhjentää kaikki luolat johon saavut, jäämättä jumiin!"
+
+Message "Tielläsi olevat otukset eivät kuitenkaan väisty tieltästi, ellet anna heille luolissa piilekseviä taikakukkia (paina x otuksen vieressä)! Ole kuitenkin varovainen kukkien keräämisen yhteydessä, sisuksiisi mahtuu vain yksi kukka kerrallaan!"
+
+Message "Jos jostain syystä jäät nalkkiin kuin nalli kalliolle, paina R (restart)."
+
+xxxxxxxxxxxxxxxxxxxxxxx
+x..x............f.....x
+x..x......x...........x
+xc........x......u....x
+xxxxxxxxxxxxxxxxxxxxxxx
+
+xxxxxxxxxxxxxxxxxxxxxxx
+x....................ux
+x.....x..x..xx..xx....x
+xxxxxc................x
+x......x..x..xxxx.....x
+xf....................x
+xxxxxxxxxxxxxxxxxxxxxxx
+
+Message "Jäinen lumi kestää painoasi paremmin. Niiden päälle on liikuttava useamman kerran!"
+
+xxxxxxxxxxxxxxxx
+x..............x
+x.:..x.........x
+x.:xfx.........x
+x..x:::.......ux
+xc..fx........ux
+xxxxxxxxxxxxxxxx
+
+xxxxxxxxxxxxxxxx
+xc...f.......::x
+xxxxxxx....::::x
+x...:....:..xxxx
+x.:::....:...u.x
+xxxxxxxxxxxxxxxx
+
+xxxxxxxx
+x...c..x
+x.::...x
+xu.::..x
+xxx....x
+xf.::..x
+x.::...x
+xxxxxxxx
+
+xxxxxxxxxxxxxxxxxxxx
+xxxxxxxxx..x.....xxx
+xc.x.......x..u::u.x
+x..x...x...x..x..xxx
+x..f.f.x...x..x..xxx
+x.::x.:u::f......xxx
+x.xx..xxx..x.f..xxxx
+x..u.......x....xxxx
+xxxxxxxxxxxxxxxxxxxx
+
+xxxxxxxxxxxxxxxxxx
+x....xxxxx..xxxxxx
+x....xxxxx....xxxx
+xx....uxxx....xxxx
+xx.......x...:.xxx
+xx..x..x.xx...:.xx
+xx.....x.......xxx
+x....:..........fx
+x:....x.xxx.x....x
+x..xf.x...x:...xxx
+x..xx.xxx.x...:.xx
+x...x.xc..x..:.xxx
+x..u..x...x...xxxx
+x..xxxx...xx..xxxx
+xxxxxxxxxxxxxxxxxx
